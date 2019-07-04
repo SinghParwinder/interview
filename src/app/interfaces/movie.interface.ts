@@ -1,3 +1,6 @@
+/**
+ * This interface rappresent the Movie type
+ */
 export interface Movie {
     Actors: string;
     Poster: string;

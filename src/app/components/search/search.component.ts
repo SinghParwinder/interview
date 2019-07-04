@@ -5,6 +5,9 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 import { OmdbService } from 'src/app/providers/omdb.service';
 import { SearchService } from './providers/search.service';
 
+/**
+ * Search component - search for movies and display the results
+ */
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -23,51 +26,64 @@ export class SearchComponent implements OnInit {
     private movieService: OmdbService,
     private localService: SearchService,
     private router: Router
-    ) { }
+  ) { }
 
+  /**
+   * Subscribe all 4 BehaviorSubjects on 2 providers in this appllication.
+   */
   ngOnInit() {
     this.localService.page.subscribe(
       value => {
-        this.page = value; 
+        this.page = value;
       }
     );
     this.localService.movie.subscribe(
       value => {
-        this.movieName = value; 
+        this.movieName = value;
       }
     );
     this.movieService.loading.subscribe(
       value => {
-        this.isLoading = value; 
+        this.isLoading = value;
       }
     );
+
     this.movieService.lastSearch.subscribe(
       value => {
-        this.results = value; 
+        this.results = value;
         this.results.filter(el => {
-          if(el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
+          if (el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
             el.Poster = 'assets/no-av.png'
-          } 
+          }
         });
       }
     );
 
+    // Subscription of value changes event of searchbar. 
     this.searchField.valueChanges.pipe(
       debounceTime(1000)
-      ).subscribe(
-        queryField => {
-          this.localService.updatePage(1);
-          this.localService.updateMovie(queryField);
-          this.movieService.search(queryField, this.page);
-          this.firstLoad = false;
-        }
+    ).subscribe(
+      queryField => {
+        this.localService.updatePage(1);
+        this.localService.updateMovie(queryField);
+        this.movieService.search(queryField, this.page);
+        this.firstLoad = false;
+      }
     );
   }
 
+  /**
+   * Load the details component with movie information.
+   * @param id movie id
+   */
   moviedetails(id: string) {
     this.router.navigate(['/movie', id]);
   }
 
+  /**
+   * Method for managing the pagination
+   * @param value 
+   */
   loadPage(value: number) {
     this.isLoading = true;
     this.localService.updatePage(this.page + value);
