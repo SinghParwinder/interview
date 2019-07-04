@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { OmdbService } from 'src/app/providers/omdb.service';
+import { Movie } from 'src/app/interfaces/movie.interface';
 
 @Component({
   selector: 'app-details',
@@ -8,15 +9,15 @@ import { OmdbService } from 'src/app/providers/omdb.service';
   styleUrls: ['./details.component.scss']
 })
 export class DetailsComponent {
-  details: any;
-  trailer: any;
-
+  details: Movie;
+  isLoading: boolean = true;
   constructor(private service: OmdbService, private route: ActivatedRoute) {
     this.route.params.subscribe(params => {
       const id = params['id'];
       this.service.getMovieDetails(id).subscribe(
         value => {
           this.details = value;
+          this.isLoading = false;
         }
       );
     });

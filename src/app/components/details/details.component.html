@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="isLoading == false">
     <div class="container__poster">
         <img src="{{details.Poster}}" alt="poster">
     </div>
@@ -12,5 +12,11 @@
         <p><span class="title-text">Cast:</span> {{details.Actors}}</p>
         <p><span class="title-text">Genere:</span> {{details.Genre}}</p>
         <p><span class="title-text">Plot:</span> {{details.Plot}}</p>
+    </div>
+</div>
+
+<div *ngIf="isLoading == true">
+    <div class="spinner-container">
+        <div id="loader"></div>
     </div>
 </div>

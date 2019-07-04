@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { Movie } from '../interfaces/movie.interface';
 
 /**
  * This service is used to load data from backend(OMDB API)
@@ -27,7 +28,7 @@ export class OmdbService {
    * Method to get all movie details from OMDB API
    * @param id id of movie  
    */
-  getMovieDetails(id: string): Observable<any> {
-    return this.http.get<any>(this.url + 'i=' + id + this.api);
+  getMovieDetails(id: string): Observable<Movie> {
+    return this.http.get<Movie>(this.url + 'i=' + id + this.api);
   }
 }

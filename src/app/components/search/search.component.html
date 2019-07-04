@@ -2,7 +2,7 @@
     <div class="serach">
         <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="searchField" />
     </div>
-    <ng-container *ngIf="results.length > 0">
+    <ng-container *ngIf="results.length > 0 && isLoading == false">
         <div class="result">
             <div *ngFor="let movie of results" class="card" (click)="moviedetails(movie.imdbID)">
                 <img src={{movie.Poster}} class="card__poster">
@@ -10,13 +10,20 @@
             </div>
         </div>
         <div class="pagination">
-            <button class="pagination__button" (click)="loadPage(-1)" [disabled]="page == 1 || results.length == 0">Prev</button>
+            <button class="pagination__button" (click)="loadPage(-1)"
+                [disabled]="page == 1 || results.length == 0">Prev</button>
             <h5> {{page}} </h5>
-            <button class="pagination__button" (click)=" loadPage(1) " [disabled]="results.length == 0">Next</button>
+            <button class="pagination__button" (click)=" loadPage(1) "
+                [disabled]="results.length == 0 || results.length < 10">Next</button>
         </div>
     </ng-container>
-
-    <ng-container *ngIf="results.length == 0">
-        <img src="assets/search.svg" id="not_search">
-    </ng-container>
+    <div class="no-movie" *ngIf="results.length == 0">
+        <img src="assets/search.svg">
+        <h3>{{message}}</h3>
+    </div>
+    <div *ngIf="isLoading == true">
+        <div class="spinner-container">
+            <div id="loader"></div>
+        </div>
+    </div>
 </div>

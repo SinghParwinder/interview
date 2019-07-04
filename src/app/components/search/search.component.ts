@@ -11,6 +11,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 })
 export class SearchComponent implements OnInit {
   isLoading: boolean = true;
+  message: string = "Search a movie by name";
   results: any[] = [];
   page: number = 1;
   movieName: string = '';
@@ -33,13 +34,19 @@ export class SearchComponent implements OnInit {
         }
       )
     ).subscribe(response => {
-      this.results = response.Search;
-      console.log(this.results);
-      this.results.filter(el => {
-        if(el.Poster == 'N/A') 
-          el.Poster = 'assets/no-av.png'
-      });
-      this.isLoading = false;
+      if(response.Response== 'True') {
+        this.results = response.Search;
+        this.results.filter(el => {
+          if(el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
+            el.Poster = 'assets/no-av.png'
+          } 
+        });
+        this.isLoading = false; 
+      } else {
+        this.results = [];
+        this.message = "Can't find any movie with that name! Try again with valid name!"
+        this.isLoading = false;
+      }
     });
   }
 
@@ -48,15 +55,13 @@ export class SearchComponent implements OnInit {
   }
 
   loadPage(value: number) {
-    
     this.page = this.page + value;
-    console.log(this.movieName, this.page);
     this.service.search(this.movieName, this.page).subscribe(response => {
       this.results = response.Search;
-      console.log('stampa del res',response )
       this.results.filter(el => {
-        if(el.Poster == 'N/A') 
+        if(el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
           el.Poster = 'assets/no-av.png'
+        }
       });
       this.isLoading = false;
     });
