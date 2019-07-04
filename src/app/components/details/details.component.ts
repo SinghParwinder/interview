@@ -17,6 +17,10 @@ export class DetailsComponent {
       this.service.getMovieDetails(id).subscribe(
         value => {
           this.details = value;
+          console.log(value);
+          if(this.details.Poster == 'N/A') {
+            this.details.Poster = 'assets/no-av.png'
+          }
           this.isLoading = false;
         }
       );

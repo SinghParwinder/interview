@@ -17,9 +17,11 @@
                 [disabled]="results.length == 0 || results.length < 10">Next</button>
         </div>
     </ng-container>
-    <div class="no-movie" *ngIf="results.length == 0">
+    <div class="no-movie" *ngIf="results.length == 0 && firstLoad == true">
         <img src="assets/search.svg">
-        <h3>{{message}}</h3>
+    </div>
+    <div class="no-movie" *ngIf="results.length == 0 && firstLoad != true">
+        <img src="assets/empty.svg">
     </div>
     <div *ngIf="isLoading == true">
         <div class="spinner-container">

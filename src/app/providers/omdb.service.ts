@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { Movie } from '../interfaces/movie.interface';
 
 /**
@@ -11,7 +11,11 @@ import { Movie } from '../interfaces/movie.interface';
 })
 export class OmdbService {
   api: string = '&apikey=1814f515';
-  url: string = 'http://www.omdbapi.com/?';
+  url: string = 'http://www.omdbapi.com/?&type=movie&';
+  private lastSearchData = new BehaviorSubject<any[]>([]);
+  private loadingValue = new BehaviorSubject<boolean>(false);
+  lastSearch = this.lastSearchData.asObservable();
+  loading = this.loadingValue.asObservable();
 
   constructor(private http: HttpClient) { }
 
@@ -20,8 +24,18 @@ export class OmdbService {
    * @param value value to search
    * @param page page of to result to load
    */
-  search(value: string, page: number): Observable<any> {
-    return this.http.get<any>(this.url + 's=' + value + '&page=' + page + this.api);
+  search(value: string, page: number) {
+    this.loadingValue.next(true);
+    this.http.get<any>(this.url + 's=' + value + '&page=' + page + this.api).subscribe(
+      response => {
+        if (response.Response == 'True') {
+         this.lastSearchData.next(response.Search);
+        } else {
+          this.lastSearchData.next([]);
+        }
+        this.loadingValue.next(false);
+      }
+    );
   }
 
   /**

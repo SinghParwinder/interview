@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { OmdbService } from 'src/app/providers/omdb.service';
 import { FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { OmdbService } from 'src/app/providers/omdb.service';
+import { SearchService } from './providers/search.service';
 
 @Component({
   selector: 'app-search',
@@ -10,6 +11,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
+  firstLoad: boolean = true;
   isLoading: boolean = false;
   message: string = "Search a movie by name";
   results: any[] = [];
@@ -18,36 +20,48 @@ export class SearchComponent implements OnInit {
   searchField: FormControl = new FormControl();
 
   constructor(
-    private service: OmdbService,
+    private movieService: OmdbService,
+    private localService: SearchService,
     private router: Router
     ) { }
 
   ngOnInit() {
-    this.searchField.valueChanges.pipe(
-      debounceTime(1000), // Wait 1.5 second before search 
-      switchMap(
-        queryField => {
-          this.page = 1;
-          this.movieName = queryField; 
-          this.isLoading = true;
-          return this.service.search(queryField, this.page);
-        }
-      )
-    ).subscribe(response => {
-      if(response.Response== 'True') {
-        this.results = response.Search;
+    this.localService.page.subscribe(
+      value => {
+        this.page = value; 
+      }
+    );
+    this.localService.movie.subscribe(
+      value => {
+        this.movieName = value; 
+      }
+    );
+    this.movieService.loading.subscribe(
+      value => {
+        this.isLoading = value; 
+      }
+    );
+    this.movieService.lastSearch.subscribe(
+      value => {
+        this.results = value; 
         this.results.filter(el => {
           if(el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
             el.Poster = 'assets/no-av.png'
           } 
         });
-        this.isLoading = false; 
-      } else {
-        this.results = [];
-        this.message = "Can't find any movie with that name! Try again with valid name!"
-        this.isLoading = false;
       }
-    });
+    );
+
+    this.searchField.valueChanges.pipe(
+      debounceTime(1000)
+      ).subscribe(
+        queryField => {
+          this.localService.updatePage(1);
+          this.localService.updateMovie(queryField);
+          this.movieService.search(queryField, this.page);
+          this.firstLoad = false;
+        }
+    );
   }
 
   moviedetails(id: string) {
@@ -56,15 +70,7 @@ export class SearchComponent implements OnInit {
 
   loadPage(value: number) {
     this.isLoading = true;
-    this.page = this.page + value;
-    this.service.search(this.movieName, this.page).subscribe(response => {
-      this.results = response.Search;
-      this.results.filter(el => {
-        if(el.Poster == 'N/A' || el.Poster.substring(0, 5) == 'http:') {
-          el.Poster = 'assets/no-av.png'
-        }
-      });
-      this.isLoading = false;
-    });
+    this.localService.updatePage(this.page + value);
+    this.movieService.search(this.movieName, this.page);
   }
 }
