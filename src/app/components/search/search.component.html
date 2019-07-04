@@ -1,0 +1,13 @@
+<div>
+    <div class="serach">
+        <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="searchField" />
+    </div>
+    <ng-container *ngIf="isLoading == false">
+        <div class="container">
+            <div *ngFor="let movie of results" class="card" (click)="moviedetails(movie.imdbID)">
+                <img src={{movie.Poster}} class="card__poster">
+                <p>{{movie.Title}}</p>
+            </div>
+        </div>
+    </ng-container>
+</div>
