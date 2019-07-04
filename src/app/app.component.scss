@@ -1,4 +1,13 @@
 .main-container {
-    width: 80%;
+    min-height: 100vh;
     margin: auto;
+    background-color: #fff;
+    padding: 50px;
+}
+
+@media(min-width:900px) {
+    .main-container {
+        width: 70%;
+        min-height: 100vh;
+    }
 }

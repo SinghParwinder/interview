@@ -1,0 +1,64 @@
+.container {
+    margin: auto;
+    align-content: center;
+
+    &__poster {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+    
+    &__details {
+        margin-bottom: auto;
+        grid-column: 2 / 3;
+        & > img {
+        height: 420px;
+        width: 300px;
+        margin:auto;
+        }
+        p {
+            font-size: 1.2em;
+            color: #4d4d4d;
+            padding: 3px;
+            margin: 0px;
+        }
+
+        span {     
+            font: 16px;
+            color: #111111;
+            font-weight: bold;
+        }
+          
+        h1 {
+            padding-top: 10px;
+            color: #111111;
+            font-size: 2em;
+            margin: 0px;
+        }
+    }
+    
+}
+
+// Media queries for responsive layout
+@media(min-width:900px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media(min-width:900px) {
+    .container {
+        width: 80%;
+        display: grid;
+        grid-gap: 3%;
+        grid-template-columns: repeat(2, 1fr);
+        &__poster {
+            grid-column: 1 / 2;    
+        }
+        
+        &__details {
+            grid-column: 2 / 3; 
+        }
+    }
+}

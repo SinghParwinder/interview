@@ -1,3 +1,26 @@
+.container {
+    float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+.pagination {
+    margin-bottom : 20px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    h5 {
+        display: inline-block;
+        margin-top: 10px;
+        color: #081C24;
+    }
+
+    &__button {
+        margin: 10px;
+    }
+}
+
 /* Styling search bar*/
 .search {
     &__input {
@@ -44,26 +67,35 @@
     }
 
     &__poster {
-        min-height: 80%;
-        &__img{
-            width: 100%;
-            height: auto;
-        } 
+        width: 100%;
+        height: 80%; 
     }
 
-    &__title {
-        p {
-            font-size: 20px;
-            padding-bottom: 10px;
-            font-weight: bold;
-            color: 	#fff;
-        }
+    p {
+        font-size: 20px;
+        padding-bottom: 10px;
+        font-weight: bold;
+        color: #fff;
     }
+   
+}
+
+.result{
+    margin-bottom: 50px;
+}
+
+#not_search {
+    width: 40%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
 }
 
 // Media queries for responsive layout
 @media(min-width:500px) {
-    .container {
+    .result {
         display: grid;
         grid-template-columns:repeat(2, 1fr);
         grid-gap: 3%;
@@ -71,7 +103,7 @@
 }
   
 @media(min-width:1000px) {
-    .container {
+    .result {
         display: grid;
         grid-template-columns:repeat(4, 1fr);
         grid-gap: 3%;
@@ -80,7 +112,7 @@
 }
   
 @media(min-width:1450px) {
-    .container {
+    .result {
         display: grid;
         grid-template-columns:repeat(5, 1fr);
         grid-gap: 3%;

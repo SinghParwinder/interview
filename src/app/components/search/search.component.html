@@ -1,17 +1,22 @@
-<div>
+<div clsss="container">
     <div class="serach">
         <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="searchField" />
     </div>
-    <ng-container *ngIf="isLoading == false">
-        <div class="container">
+    <ng-container *ngIf="results.length > 0">
+        <div class="result">
             <div *ngFor="let movie of results" class="card" (click)="moviedetails(movie.imdbID)">
-                <div class="card_poster">
-                    <img src={{movie.Poster}} class="card__poster__img">
-                </div>
-                <div class="card__title">
-                    <p>{{(movie.Title.length>13)? (movie.Title | slice:0:13)+'..':(movie.Title)}}</p>
-                </div>
+                <img src={{movie.Poster}} class="card__poster">
+                <p>{{(movie.Title.length>13)? (movie.Title | slice:0:13)+'..':(movie.Title)}}</p>
             </div>
         </div>
+        <div class="pagination">
+            <button class="pagination__button" (click)="loadPage(-1)" [disabled]="page == 1 || results.length == 0">Prev</button>
+            <h5> {{page}} </h5>
+            <button class="pagination__button" (click)=" loadPage(1) " [disabled]="results.length == 0">Next</button>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="results.length == 0">
+        <img src="assets/search.svg" id="not_search">
     </ng-container>
 </div>

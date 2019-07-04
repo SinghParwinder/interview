@@ -12,11 +12,13 @@ import { debounceTime, switchMap } from 'rxjs/operators';
 export class SearchComponent implements OnInit {
   isLoading: boolean = true;
   results: any[] = [];
+  page: number = 1;
+  movieName: string = '';
   searchField: FormControl = new FormControl();
 
   constructor(
     private service: OmdbService,
-    private router: Router,
+    private router: Router
     ) { }
 
   ngOnInit() {
@@ -24,8 +26,10 @@ export class SearchComponent implements OnInit {
       debounceTime(1500), // Wait 1.5 second before search 
       switchMap(
         queryField => {
+          this.page = 1;
+          this.movieName = queryField; 
           this.isLoading = true;
-          return this.service.search(queryField, 1);
+          return this.service.search(queryField, this.page);
         }
       )
     ).subscribe(response => {
@@ -41,5 +45,20 @@ export class SearchComponent implements OnInit {
 
   moviedetails(id: string) {
     this.router.navigate(['/movie', id]);
+  }
+
+  loadPage(value: number) {
+    
+    this.page = this.page + value;
+    console.log(this.movieName, this.page);
+    this.service.search(this.movieName, this.page).subscribe(response => {
+      this.results = response.Search;
+      console.log('stampa del res',response )
+      this.results.filter(el => {
+        if(el.Poster == 'N/A') 
+          el.Poster = 'assets/no-av.png'
+      });
+      this.isLoading = false;
+    });
   }
 }
