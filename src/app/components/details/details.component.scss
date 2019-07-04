@@ -31,7 +31,6 @@
         }
           
         h1 {
-            padding-top: 10px;
             color: #111111;
             font-size: 2em;
             margin: 0px;
@@ -41,13 +40,13 @@
 }
 
 // Media queries for responsive layout
-@media(min-width:800px) {
+@media(min-width:700px) {
     .container {
         width: 100%;
     }
 }
 
-@media(min-width:900px) {
+@media(min-width:700px) {
     .container {
         width: 80%;
         display: grid;

@@ -10,7 +10,7 @@ import { debounceTime, switchMap } from 'rxjs/operators';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  isLoading: boolean = true;
+  isLoading: boolean = false;
   message: string = "Search a movie by name";
   results: any[] = [];
   page: number = 1;
@@ -24,7 +24,7 @@ export class SearchComponent implements OnInit {
 
   ngOnInit() {
     this.searchField.valueChanges.pipe(
-      debounceTime(1500), // Wait 1.5 second before search 
+      debounceTime(1000), // Wait 1.5 second before search 
       switchMap(
         queryField => {
           this.page = 1;
@@ -55,6 +55,7 @@ export class SearchComponent implements OnInit {
   }
 
   loadPage(value: number) {
+    this.isLoading = true;
     this.page = this.page + value;
     this.service.search(this.movieName, this.page).subscribe(response => {
       this.results = response.Search;
