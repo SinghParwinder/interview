@@ -1,15 +1,14 @@
 /* Styling search bar*/
 .search {
-    margin: 50px;
     &__input {
-        border:1px solid #2a2e31;
-        background-color:white;
+        font-size: 1em;
+        border: 1px solid #2a2e31;
+        background-color:#fff;
         color:#505358;
-        width:100%;
+        width: 100%;
         height: 40px;
         letter-spacing: 1.5px;
         text-align: center;
-        background-color: transparent;
         transition: transform 250ms ease-in-out;
         transition: all 250ms ease-in-out;
         transform-style: preserve-3d;
@@ -31,48 +30,51 @@
     }
 }
   
+// Movie card styling
 .card {
-    margin-top: 20px;
-    display: block;
+    margin-top: 40px;
     margin-left: auto;
     margin-right: auto;
-    box-shadow:0 15px 30px rgba(black, .25);
     text-align: center;
+    background-color: #081C24;
 
     &:hover {
         cursor: grab;
         opacity: 0.80;
     }
 
-    .p {
-        font-size: 20px;
-        font-weight: bold;
-        color: 	#B22222;
+    &__poster {
+        min-height: 80%;
+        &__img{
+            width: 100%;
+            height: auto;
+        } 
     }
 
-    &_poster {
-        width: 100%;
-        min-height: 100%;
+    &__title {
+        p {
+            font-size: 20px;
+            padding-bottom: 10px;
+            font-weight: bold;
+            color: 	#fff;
+        }
     }
 }
 
-@media(max-width:720px) {
+// Media queries for responsive layout
+@media(min-width:500px) {
     .container {
         display: grid;
-        grid-template-columns:1fr;
-        margin: auto;
-        width: auto;
-        background-color: white;
+        grid-template-columns:repeat(2, 1fr);
+        grid-gap: 3%;
     }
 }
   
-@media(min-width:720px) {
+@media(min-width:1000px) {
     .container {
         display: grid;
-        grid-template-columns:repeat(3, 1fr);
-        margin: auto;
-        width: 100%;
-        background-color: white;
+        grid-template-columns:repeat(4, 1fr);
+        grid-gap: 3%;
     }
    
 }
@@ -81,9 +83,6 @@
     .container {
         display: grid;
         grid-template-columns:repeat(5, 1fr);
-        grid-template-rows: 1fr;
-        margin: auto;
-        background-color: white;
         grid-gap: 3%;
     }
 }

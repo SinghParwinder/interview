@@ -5,8 +5,12 @@
     <ng-container *ngIf="isLoading == false">
         <div class="container">
             <div *ngFor="let movie of results" class="card" (click)="moviedetails(movie.imdbID)">
-                <img src={{movie.Poster}} class="card__poster">
-                <p>{{movie.Title}}</p>
+                <div class="card_poster">
+                    <img src={{movie.Poster}} class="card__poster__img">
+                </div>
+                <div class="card__title">
+                    <p>{{(movie.Title.length>13)? (movie.Title | slice:0:13)+'..':(movie.Title)}}</p>
+                </div>
             </div>
         </div>
     </ng-container>
