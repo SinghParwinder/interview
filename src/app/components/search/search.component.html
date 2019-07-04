@@ -1,5 +1,5 @@
 <div clsss="container">
-    <div class="serach">
+    <div class="search">
         <input type="text" class="search__input" placeholder="Search a movie..." [formControl]="searchField" />
     </div>
     <ng-container *ngIf="results.length > 0 && isLoading == false">
@@ -10,10 +10,10 @@
             </div>
         </div>
         <div class="pagination">
-            <button class="pagination__button" (click)="loadPage(-1)"
+            <button class="pagination__button button" (click)="loadPage(-1)"
                 [disabled]="page == 1 || results.length == 0">Prev</button>
-            <h5> {{page}} </h5>
-            <button class="pagination__button" (click)=" loadPage(1) "
+            <h5> - {{page}} - </h5>
+            <button class="pagination__button button" (click)=" loadPage(1) "
                 [disabled]="results.length == 0 || results.length < 10">Next</button>
         </div>
     </ng-container>

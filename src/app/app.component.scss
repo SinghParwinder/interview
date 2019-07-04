@@ -28,12 +28,10 @@
         font-size: 3em;
         color: #fff;
     }
-  }
-
-
+}
 
 .main-container {
-    min-height: 80vh;
+    min-height: 70vh;
     margin: auto;
     background-color: #fff;
     padding: 50px;
@@ -42,12 +40,12 @@
 @media(min-width:900px) {
     .main-container {
         width: 60%;
-        min-height: 80vh;
+        min-height: 70vh;
     }
 
     .logo {
         h1 {
             font-size: 5em;
         }
-      }
+    }
 }
