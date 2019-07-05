@@ -6,6 +6,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 'http://interview-test.surge.sh/'
 
+## Installation
+
+Clone this repository and than run 'npm install' inside the folder of the repositoy
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
