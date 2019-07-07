@@ -1,5 +1,6 @@
 body {
     background-image: url('assets/bg.jpg');
+    background-position: center;
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -11,9 +12,7 @@ body {
     left: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-
 }
-
 
 #loader {
     width: 50px;
@@ -38,4 +37,4 @@ body {
     }
     75% { border-width: 3px;}
     100% { border-width: 10px;}
-  }
+}
