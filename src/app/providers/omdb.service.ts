@@ -20,7 +20,7 @@ export class OmdbService {
   constructor(private http: HttpClient) { }
 
   /**
-   * Used to get movies search from OMDB API -> adn to update the value of BehaviorSubjects
+   * Used to get movies from OMDB API -> and to update the value of BehaviorSubjects
    * @param value value to search
    * @param page page number
    */
@@ -39,7 +39,7 @@ export class OmdbService {
   }
 
   /**
-   * Method to get all movie details from OMDB API
+   * Method to get full movie details from OMDB API
    * @param id id of the movie  
    */
   getMovieDetails(id: string): Observable<Movie> {

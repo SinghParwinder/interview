@@ -23,7 +23,7 @@ export class SearchService {
   constructor() { }
 
   /**
-   * Method to update the value of pageNumber BehaviorSubject
+   * Method to update the value of pageNumber(BehaviorSubject)
    * @param value new value
    */
   updatePage(value: number) {
@@ -31,7 +31,7 @@ export class SearchService {
   }
 
   /**
-    * Method to update the value of lastMovies BehaviorSubject
+    * Method to update the value of lastMovies(BehaviorSubject)
     * @param value new value
     */
   updateMovie(value: string) {

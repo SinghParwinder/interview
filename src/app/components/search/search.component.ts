@@ -29,7 +29,7 @@ export class SearchComponent implements OnInit {
   ) { }
 
   /**
-   * Subscribe all 4 BehaviorSubjects on 2 providers in this appllication.
+   * Subscriptions of all 4 BehaviorSubjects
    */
   ngOnInit() {
     this.localService.page.subscribe(
@@ -59,7 +59,7 @@ export class SearchComponent implements OnInit {
       }
     );
 
-    // Subscription of value changes event of searchbar. 
+    // Subscribe to valueChanges for searchFiled element
     this.searchField.valueChanges.pipe(
       debounceTime(1000)
     ).subscribe(
@@ -73,7 +73,7 @@ export class SearchComponent implements OnInit {
   }
 
   /**
-   * Load the details component with movie information.
+   * Navigate to '/movie' and display full information about specific movie
    * @param id movie id
    */
   moviedetails(id: string) {
