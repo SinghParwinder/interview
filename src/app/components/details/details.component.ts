@@ -4,7 +4,7 @@ import { OmdbService } from 'src/app/providers/omdb.service';
 import { Movie } from 'src/app/interfaces/movie.interface';
 
 /**
- * This component shows the details of specific movie
+ * This component shows full details of movie
  */
 @Component({
   selector: 'app-details',
@@ -16,7 +16,7 @@ export class DetailsComponent {
   isLoading: boolean = true;
 
   /**
-   * Read the param(movie id) from the url, and load all the details by using method of OmdbService.
+   * Read the param(movie id) from the url, and load full details of that movies
    * @param service DI of OmdbService
    * @param route DI of ActivatedRoute
    */
